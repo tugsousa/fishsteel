@@ -58,3 +58,7 @@ shape = SubResource("SphereShape3D_ubp1v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="dungeonExit"]
 mesh = SubResource("SphereMesh_c4wp1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.94402, 0.250261, -0.214932, 0, 0.651529, 0.758624, 0.329888, -0.716156, 0.615057, -3.04213, 7.47829, 1.45579)
+shadow_enabled = true
