@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://32fp6yj6go7r"]
+[gd_scene load_steps=8 format=3 uid="uid://32fp6yj6go7r"]
+
+[ext_resource type="Script" uid="uid://dtco1ghaec4qn" path="res://scripts/portal.gd" id="1_ubp1v"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wx5jw"]
 
@@ -7,6 +9,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_b6g6f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fd4m6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ubp1v"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_c4wp1"]
 
 [node name="Dungeon" type="Node3D"]
 
@@ -41,3 +47,14 @@ shape = SubResource("BoxShape3D_b6g6f")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 50, 60.8001, 4.49008, -1.14167)
 mesh = SubResource("BoxMesh_fd4m6")
+
+[node name="dungeonExit" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.360662, 0.604254, -1)
+script = ExtResource("1_ubp1v")
+target_scene_path = "uid://bhhuuvbe68463"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dungeonExit"]
+shape = SubResource("SphereShape3D_ubp1v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="dungeonExit"]
+mesh = SubResource("SphereMesh_c4wp1")
