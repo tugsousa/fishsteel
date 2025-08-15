@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="FishSteel"
-run/main_scene="uid://bhhuuvbe68463"
+run/main_scene="uid://island"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [input]

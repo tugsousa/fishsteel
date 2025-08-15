@@ -1,64 +1,43 @@
-[gd_scene load_steps=8 format=3 uid="uid://32fp6yj6go7r"]
+[gd_scene load_steps=7 format=3 uid="uid://dungeon"]
 
-[ext_resource type="Script" uid="uid://dtco1ghaec4qn" path="res://scripts/portal.gd" id="1_ubp1v"]
+[ext_resource type="PackedScene" uid="uid://c5a4gs40payqa" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="Script" uid="uid://dtco1ghaec4qn" path="res://scripts/portal.gd" id="2"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wx5jw"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_portal"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_b6g6f"]
+[sub_resource type="BoxMesh" id="BoxMesh_portal"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_b6g6f"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_c4wp1"]
+size = Vector3(50, 0.1, 50)
 
-[sub_resource type="BoxMesh" id="BoxMesh_fd4m6"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_ubp1v"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_c4wp1"]
+[sub_resource type="BoxMesh" id="BoxMesh_fpimf"]
+size = Vector3(50, 0.1, 50)
 
 [node name="Dungeon" type="Node3D"]
 
-[node name="chao" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="chao"]
-transform = Transform3D(50, 0, 0, 0, 0.2, 0, 0, 0, 50, 0, 0, 0)
-shape = SubResource("BoxShape3D_wx5jw")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="chao"]
-transform = Transform3D(50, 0, 0, 0, 0.2, 0, 0, 0, 50, 0, 0, 0)
-mesh = SubResource("BoxMesh_b6g6f")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7698, 0.44547, 0.487798)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 50, 60.8, 4.49, -1.142)
-shape = SubResource("BoxShape3D_b6g6f")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 50, 60.8001, 4.49008, -1.14167)
-mesh = SubResource("BoxMesh_fd4m6")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.6373, 0.44547, 0.487798)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 50, 60.8, 4.49, -1.142)
-shape = SubResource("BoxShape3D_b6g6f")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 50, 60.8001, 4.49008, -1.14167)
-mesh = SubResource("BoxMesh_fd4m6")
-
-[node name="dungeonExit" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.360662, 0.604254, -1)
-script = ExtResource("1_ubp1v")
-target_scene_path = "uid://bhhuuvbe68463"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="dungeonExit"]
-shape = SubResource("SphereShape3D_ubp1v")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="dungeonExit"]
-mesh = SubResource("SphereMesh_c4wp1")
+[node name="Player" parent="." instance=ExtResource("1")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.94402, 0.250261, -0.214932, 0, 0.651529, 0.758624, 0.329888, -0.716156, 0.615057, -3.04213, 7.47829, 1.45579)
+transform = Transform3D(-0.6, 0.7, -0.4, -0.7, 0.1, 0.7, 0.3, 0.7, 0.6, 0, 10, 0)
 shadow_enabled = true
+
+[node name="DungeonExit" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -20)
+script = ExtResource("2")
+target_scene_path = "res://scenes/island.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DungeonExit"]
+shape = SubResource("BoxShape3D_portal")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DungeonExit"]
+mesh = SubResource("BoxMesh_portal")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_c4wp1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_fpimf")
+
+[connection signal="body_entered" from="DungeonExit" to="DungeonExit" method="_on_body_entered"]
